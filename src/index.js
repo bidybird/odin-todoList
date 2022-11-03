@@ -1,22 +1,22 @@
-const Project = (title, description, dueDate, priority, notes) => {
+const Todo = (title, description, dueDate, priority, notes) => {
   this.title = title;
   this.description = description;
   this.dueDate = dueDate;
   this.priority = priority;
   this.notes = notes;
 
-  const sumOfProject = sumProject(title, description, dueDate, priority, notes);
+  const sumOfTodo = sumTodo(title, description, dueDate, priority, notes);
 
-  const displayProject = displayContent(sumOfProject);
+  const displayTodo = displayContent(sumOfTodo);
 
   return {
-    projectInfo: displayProject,
+    todoInfo: displayTodo,
   };
 };
 
 //--------------------------------------------------
 
-const projectOne = Project(
+const todoOne = Todo(
   "Buy Food",
   "Go to HEB and buy chips and beer.",
   "11/3/2022",
@@ -24,11 +24,11 @@ const projectOne = Project(
   "Also say thank you to the person working the cash register."
 );
 
-projectOne.projectInfo;
+todoOne.todoInfo;
 
 //--------------------------------------------------
 
-function sumProject(title, description, dueDate, priority, notes) {
+function sumTodo(title, description, dueDate, priority, notes) {
   return `${title} ${description} ${dueDate} ${priority} ${notes}`;
 }
 
