@@ -95,9 +95,22 @@ function sumProject(projectName, projectDescription, projectDueDate) {
 }
 
 //-------------------------------------
-//button toggles
+//form toggles
+
+todoButton = document.querySelector("#newTodo");
+todoButton.addEventListener("click", () => {
+  if (todoForm.style.display === "none") {
+    todoForm.style.display = "block";
+  } else {
+    todoForm.style.display = "none";
+  }
+});
 
 projectButton = document.querySelector("#newProject");
-projectButton.addEventListener("click", (e) => {
-  console.log(e);
+projectButton.addEventListener("click", () => {
+  if (projectForm.style.display === "none") {
+    projectForm.style.display = "block";
+  } else {
+    projectForm.style.display = "none";
+  }
 });
