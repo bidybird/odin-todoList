@@ -9,8 +9,8 @@ todoForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const todo = createNewTodo();
   todoTotalArray.push(todo);
+  displayTodos();
   todoForm.style.display = "none";
-  //projectForm.style.display = "block";
 });
 
 //--------------------------------------
@@ -67,8 +67,8 @@ projectForm.addEventListener("submit", (event) => {
   const project = createNewProject();
   projectArray.push(project);
   console.log(projectArray);
+  displayProjects();
   projectForm.style.display = "none";
-  //projectForm.style.display = "block"; to make it re-appear
 });
 
 //------------------------------------------------
@@ -99,18 +99,54 @@ function sumProject(projectName, projectDescription, projectDueDate) {
 
 todoButton = document.querySelector("#newTodo");
 todoButton.addEventListener("click", () => {
-  if (todoForm.style.display === "none") {
-    todoForm.style.display = "block";
-  } else {
+  if (todoForm.style.display === "block") {
     todoForm.style.display = "none";
+  } else {
+    todoForm.style.display = "block";
   }
 });
 
 projectButton = document.querySelector("#newProject");
 projectButton.addEventListener("click", () => {
-  if (projectForm.style.display === "none") {
-    projectForm.style.display = "block";
-  } else {
+  if (projectForm.style.display === "block") {
     projectForm.style.display = "none";
+  } else {
+    projectForm.style.display = "block";
   }
 });
+
+//------ (this displays below the form buttons)
+//display default project with all todos inside of it displayed
+
+function displayProjects() {
+  const container = document.querySelector("#container");
+  for (let i = 0; i < projectArray.length; i++) {
+    const disProject = document.createElement("div");
+    disProject.setAttribute("class", "displayedProject");
+    disProject.textContent = `Project: ${projectArray[i].projectName} \n Description: ${projectArray[i].projectDescription} \n Expected Completion Date: ${projectArray[i].projectDueDate}`;
+    container.appendChild(disProject);
+    //disProject.addEventListener("click", () => {
+    //display stored todo array below project this
+    //}
+  }
+}
+
+//------
+//store todos into projects
+function displayTodos() {
+  defaultProject = document.querySelector("#defaultProject");
+  for (let i = 0; i < todoTotalArray.length; i++) {
+    const disTodo = document.createElement("div");
+    disTodo.setAttribute("class", "displayedTodo");
+    disTodo.textContent =
+      `Task: ${todoTotalArray[i].task} ` +
+      `Description: ${todoTotalArray[i].description} ` +
+      `Expected Completion Date: ${todoTotalArray[i].dueDate} ` +
+      `Notes: ${todoTotalArray[i].notes}`;
+    disTodo.style.borderColor = `${todoTotalArray[i].priority} `;
+    defaultProject.appendChild(disTodo);
+    //disProject.addEventListener("click", () => {
+    //display stored todo array below project this
+    //}
+  }
+}
