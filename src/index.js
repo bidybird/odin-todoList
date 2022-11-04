@@ -120,33 +120,31 @@ projectButton.addEventListener("click", () => {
 
 function displayProjects() {
   const container = document.querySelector("#container");
-  for (let i = 0; i < projectArray.length; i++) {
-    const disProject = document.createElement("div");
-    disProject.setAttribute("class", "displayedProject");
-    disProject.textContent = `Project: ${projectArray[i].projectName} \n Description: ${projectArray[i].projectDescription} \n Expected Completion Date: ${projectArray[i].projectDueDate}`;
-    container.appendChild(disProject);
-    //disProject.addEventListener("click", () => {
-    //display stored todo array below project this
-    //}
-  }
+  const x = projectArray.length - 1;
+  const disProject = document.createElement("div");
+  disProject.setAttribute("class", "displayedProject");
+  disProject.textContent = `Project: ${projectArray[x].projectName} \n Description: ${projectArray[x].projectDescription} \n Expected Completion Date: ${projectArray[x].projectDueDate}`;
+  container.appendChild(disProject);
+  //disProject.addEventListener("click", () => {
+  //display stored todo array below project this
+  //}
 }
 
 //------
 //store todos into projects
 function displayTodos() {
   defaultProject = document.querySelector("#defaultProject");
-  for (let i = 0; i < todoTotalArray.length; i++) {
-    const disTodo = document.createElement("div");
-    disTodo.setAttribute("class", "displayedTodo");
-    disTodo.textContent =
-      `Task: ${todoTotalArray[i].task} ` +
-      `Description: ${todoTotalArray[i].description} ` +
-      `Expected Completion Date: ${todoTotalArray[i].dueDate} ` +
-      `Notes: ${todoTotalArray[i].notes}`;
-    disTodo.style.borderColor = `${todoTotalArray[i].priority} `;
-    defaultProject.appendChild(disTodo);
-    //disProject.addEventListener("click", () => {
-    //display stored todo array below project this
-    //}
-  }
+  const x = todoTotalArray.length - 1;
+  const disTodo = document.createElement("div");
+  disTodo.setAttribute("class", "displayedTodo");
+  disTodo.textContent =
+    `Task: ${todoTotalArray[x].task} ` +
+    `Description: ${todoTotalArray[x].description} ` +
+    `Expected Completion Date: ${todoTotalArray[x].dueDate} ` +
+    `Notes: ${todoTotalArray[x].notes}`;
+  disTodo.style.borderColor = `${todoTotalArray[x].priority} `;
+  defaultProject.appendChild(disTodo);
+  //disProject.addEventListener("click", () => {
+  //display stored todo array below project this
+  //}
 }
