@@ -146,30 +146,48 @@ function displayTodos() {
 
   const todoExpansion = document.createElement("div");
   todoExpansion.setAttribute("class", "expandedTodo");
-  todoExpansion.innerHTML = `Notes: ${todoTotalArray[x].notes} <br> Priority: <br>
-  <input type="radio" name="newPriority" class="newPriority" value="lightblue"/>
-  <label for="nonUrgent">Non-Urgent :</label>
-  <input type="radio" name="newPriority" class="newPriority" value="lightgreen"/>
-  <label for="normal">Normal</label>
-  <input type="radio" name="newPriority" class="newPriority" value="lightsalmon"/>
-  <label for="urgent">Urgent :</label>
-  <input type="radio" name="newPriority" class="newPriority" value="lightcoral"/> 
-  <label for="veryUrgent">Very Urgent</label><br>`;
+  todoExpansion.innerHTML = `Notes: ${todoTotalArray[x].notes} <br> Priority: `;
 
+  const priorityRow = document.createElement("div");
+  priorityRow.setAttribute("class", "priorityRow");
+
+  const btnNonUrgent = document.createElement("button");
+  btnNonUrgent.setAttribute("class", "prioBtn");
+  btnNonUrgent.textContent = "Non-Urgent";
+  btnNonUrgent.style.backgroundColor = "lightblue";
+
+  const btnNormal = document.createElement("button");
+  btnNormal.setAttribute("class", "prioBtn");
+  btnNormal.textContent = "Normal";
+  btnNormal.style.backgroundColor = "lightgreen";
+
+  const btnUrgent = document.createElement("button");
+  btnUrgent.setAttribute("class", "prioBtn");
+  btnUrgent.textContent = "Urgent";
+  btnUrgent.style.backgroundColor = "lightsalmon";
+
+  const btnVeryUrgent = document.createElement("button");
+  btnVeryUrgent.setAttribute("class", "prioBtn");
+  btnVeryUrgent.textContent = "Very-Urgent";
+  btnVeryUrgent.style.backgroundColor = "lightcoral";
+
+  priorityRow.appendChild(btnNonUrgent);
+  priorityRow.appendChild(btnNormal);
+  priorityRow.appendChild(btnUrgent);
+  priorityRow.appendChild(btnVeryUrgent);
+
+  todoExpansion.appendChild(priorityRow);
+
+  const priorityBtnArray = priorityRow.children;
   //ability to change priority
-  let newPriority = document.getElementsByClassName("newPriority");
-  console.log(newPriority);
-  console.log(document.getElementsByName("newPriority").length);
   function changePriority(event) {
-    console.log("change priority was triggred");
-    console.log(todoTotalArray[x].priority);
-    console.log(event.target.value);
-    todoTotalArray[x].priority = event.target.value;
+    todoTotalArray[x].priority = event.target.style.backgroundColor;
+    event.target.parentElement.parentElement.parentElement.style.borderColor =
+      event.target.style.backgroundColor;
   }
-  for (let i = 0; i < newPriority.length; i++) {
+  for (let i = 0; i < priorityBtnArray.length; i++) {
     console.log("in the for loop");
-    console.log(newPriority);
-    newPriority[i].addEventListener("change", changePriority);
+    priorityBtnArray[i].addEventListener("click", changePriority);
   }
 
   disTodo.appendChild(todoExpansion);
