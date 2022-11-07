@@ -98,6 +98,7 @@ function sumProject(projectName, projectDescription, projectDueDate) {
 //form toggles
 
 todoButton = document.querySelector("#newTodo");
+
 todoButton.addEventListener("click", () => {
   if (todoForm.style.display === "block") {
     todoForm.style.display = "none";
@@ -107,6 +108,7 @@ todoButton.addEventListener("click", () => {
 });
 
 projectButton = document.querySelector("#newProject");
+
 projectButton.addEventListener("click", () => {
   if (projectForm.style.display === "block") {
     projectForm.style.display = "none";
@@ -123,7 +125,7 @@ function displayProjects() {
   const x = projectArray.length - 1;
   const disProject = document.createElement("div");
   disProject.setAttribute("class", "displayedProject");
-  disProject.textContent = `Project: ${projectArray[x].projectName} \n Description: ${projectArray[x].projectDescription} \n Expected Completion Date: ${projectArray[x].projectDueDate}`;
+  disProject.innerHTML = `Project: ${projectArray[x].projectName} <br> Description: ${projectArray[x].projectDescription} <br> Expected Completion Date: ${projectArray[x].projectDueDate}`;
   container.appendChild(disProject);
   //disProject.addEventListener("click", () => {
   //display stored todo array below project this
@@ -137,14 +139,57 @@ function displayTodos() {
   const x = todoTotalArray.length - 1;
   const disTodo = document.createElement("div");
   disTodo.setAttribute("class", "displayedTodo");
-  disTodo.textContent =
-    `Task: ${todoTotalArray[x].task} ` +
-    `Description: ${todoTotalArray[x].description} ` +
-    `Expected Completion Date: ${todoTotalArray[x].dueDate} ` +
-    `Notes: ${todoTotalArray[x].notes}`;
+  disTodo.innerHTML = `Task: ${todoTotalArray[x].task} <br> 
+    Description: ${todoTotalArray[x].description} <br> 
+    Expected Completion Date: ${todoTotalArray[x].dueDate} `;
   disTodo.style.borderColor = `${todoTotalArray[x].priority} `;
+
+  const todoExpansion = document.createElement("div");
+  todoExpansion.setAttribute("class", "expandedTodo");
+  todoExpansion.innerHTML = `Notes: ${todoTotalArray[x].notes} <br> Priority: <br>
+  <input type="radio" name="newPriority" class="newPriority" value="lightblue"/>
+  <label for="nonUrgent">Non-Urgent :</label>
+  <input type="radio" name="newPriority" class="newPriority" value="lightgreen"/>
+  <label for="normal">Normal</label>
+  <input type="radio" name="newPriority" class="newPriority" value="lightsalmon"/>
+  <label for="urgent">Urgent :</label>
+  <input type="radio" name="newPriority" class="newPriority" value="lightcoral"/> 
+  <label for="veryUrgent">Very Urgent</label><br>`;
+
+  //ability to change priority
+  let newPriority = document.getElementsByClassName("newPriority");
+  console.log(newPriority);
+  console.log(document.getElementsByName("newPriority").length);
+  function changePriority(event) {
+    console.log("change priority was triggred");
+    console.log(todoTotalArray[x].priority);
+    console.log(event.target.value);
+    todoTotalArray[x].priority = event.target.value;
+  }
+  for (let i = 0; i < newPriority.length; i++) {
+    console.log("in the for loop");
+    console.log(newPriority);
+    newPriority[i].addEventListener("change", changePriority);
+  }
+
+  disTodo.appendChild(todoExpansion);
+
+  disTodo.addEventListener("click", (e) => {
+    if (e.target.querySelector(".expandedTodo").style.display === "block") {
+      e.target.querySelector(".expandedTodo").style.display = "none";
+    } else {
+      e.target.querySelector(".expandedTodo").style.display = "block";
+    }
+  });
+
   defaultProject.appendChild(disTodo);
+
   //disProject.addEventListener("click", () => {
   //display stored todo array below project this
   //}
 }
+
+////////////
+// add a completion button
+// const doneTodoBtn = document.createElement("btn");
+// doneTodoBtn.setAttribute("class", "doneBtn");
