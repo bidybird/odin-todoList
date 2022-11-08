@@ -150,8 +150,8 @@ function displayTodos() {
   disTodo.setAttribute("class", "displayedTodo");
   disTodo.innerHTML = `Task: ${todoMainArray[x].task} <br> 
     Description: ${todoMainArray[x].description} <br> 
-    Expected Completion Date: ${todoMainArray[x].dueDate} <br>
-    ${checkCompletion(todoMainArray[x])}`;
+    Expected Completion Date: ${todoMainArray[x].dueDate}`;
+
   disTodo.style.borderColor = `${todoMainArray[x].priority} `;
 
   const todoExpansion = document.createElement("div");
@@ -188,8 +188,34 @@ function displayTodos() {
 
   todoExpansion.appendChild(priorityRow);
 
+  const completeRow = document.createElement("div");
+  completeRow.setAttribute("class", "completeRow");
+
+  const divComplete = document.createElement("div");
+  divComplete.textContent = `${checkCompletion(todoMainArray[x])} :`;
+
+  const btnComplete = document.createElement("button");
+  btnComplete.setAttribute("class", "completeBtn");
+  btnComplete.textContent = "change";
+  btnComplete.addEventListener("click", changeCompletion);
+
+  function changeCompletion() {
+    if (todoMainArray[x].todoComplete === false) {
+      todoMainArray[x].todoComplete = true;
+      divComplete.textContent = `${checkCompletion(todoMainArray[x])} :`;
+    } else {
+      todoMainArray[x].todoComplete = false;
+      divComplete.textContent = `${checkCompletion(todoMainArray[x])} :`;
+    }
+  }
+
+  completeRow.appendChild(divComplete);
+  completeRow.appendChild(btnComplete);
+  todoExpansion.appendChild(completeRow);
+
   const priorityBtnArray = priorityRow.children;
   //ability to change priority
+
   function changePriority(event) {
     todoMainArray[x].priority = event.target.style.backgroundColor;
     event.target.parentElement.parentElement.parentElement.style.borderColor =
